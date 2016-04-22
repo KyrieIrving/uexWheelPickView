@@ -72,7 +72,7 @@
     self.btn1 = [UIButton buttonWithType:0];
     self.btn1.frame = CGRectMake(0, 0, [EUtility screenWidth], [EUtility screenHeight]);
     self.btn1.backgroundColor = [UIColor clearColor];
-    self.pickView = [[UIPickerView alloc]initWithFrame:CGRectMake(x, y-50, width, height-50)];
+    self.pickView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, 50, width, height-50)];
     [view addSubview:btn];
     [view addSubview:self.pickView];
     [self.btn1 addSubview:view];
