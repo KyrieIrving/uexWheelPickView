@@ -10,12 +10,12 @@
 #import "EUtility.h"
 #import "JSON.h"
 @implementation EUExWheelPickView{
-     BOOL currentOpenStaus;
+    BOOL currentOpenStaus;
     
 }
 - (id)initWithBrwView:(EBrowserView *)eInBrwView{
     if (self = [ super initWithBrwView:eInBrwView]) {
-       
+        
     }
     return self;
 }
@@ -59,20 +59,26 @@
     }
     id info=[inArguments[0] JSONValue];
     self.selectArr = [info objectForKey:@"select"];
-    float x = [[info objectForKey:@"x"] floatValue];
-    float y = [[info objectForKey:@"y"] floatValue];
-    float width = [[info objectForKey:@"width"] floatValue];
-    float height = [[info objectForKey:@"height"] floatValue];
+    float x = [[info objectForKey:@"x"] floatValue]?:0;
+    float hei = 0.4 *[EUtility screenHeight];
+    float y = [[info objectForKey:@"y"] floatValue]?:[EUtility screenHeight] -hei ;
+    float width = [[info objectForKey:@"width"] floatValue]?:[EUtility screenWidth];
+    float height = [[info objectForKey:@"height"] floatValue]?:hei;
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(x, y, width, height)];
     view.backgroundColor = [EUtility ColorFromString:@"#FCFCFC"];
     UIButton *btn = [UIButton buttonWithType:0];
-    btn.frame = CGRectMake(width-50, 15, 50, 20);
+    btn.frame = CGRectMake(width-50, 10, 50, 20);
     [btn setTitle:@"确定" forState:UIControlStateNormal];
-    [btn setTitleColor:[EUtility ColorFromString:@"#4F94CD"]forState:UIControlStateNormal];
+    [btn setTitleColor:[EUtility ColorFromString:@"#1874CD"]forState:UIControlStateNormal];
+    UIButton *btn2 = [UIButton buttonWithType:0];
+    btn2.frame = CGRectMake(0, 10, 50, 20);
+    [btn2 setTitle:@"取消" forState:UIControlStateNormal];
+    [btn2 setTitleColor:[EUtility ColorFromString:@"#1874CD"]forState:UIControlStateNormal];
     self.btn1 = [UIButton buttonWithType:0];
     self.btn1.frame = CGRectMake(0, 0, [EUtility screenWidth], [EUtility screenHeight]);
     self.btn1.backgroundColor = [UIColor clearColor];
-    self.pickView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, 50, width, height-50)];
+    self.pickView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, 40, width, height-40)];
+    [view addSubview:btn2];
     [view addSubview:btn];
     [view addSubview:self.pickView];
     [self.btn1 addSubview:view];
@@ -96,7 +102,7 @@
         for (NSDictionary *dic in citys) {
             [second addObject:dic[@"name"]];
         }
-       self.citysDic[provinceName] = second;
+        self.citysDic[provinceName] = second;
     }
     
     for (NSDictionary *dic in rootArr) {
@@ -134,11 +140,12 @@
     [self thrid];
     [self second];
     [btn addTarget:self action:@selector(choose) forControlEvents:UIControlEventTouchUpInside];
+    [btn2 addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
     [self.btn1 addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     [[UIApplication sharedApplication].keyWindow addSubview:self.btn1];
     //[EUtility brwView:meBrwView addSubview:self.btn1];
-
+    
 }
 -(void)close:(NSMutableArray*)inArguments{
     currentOpenStaus = NO;
@@ -151,11 +158,11 @@
     self.areasDic = nil;
     self.selectArea = nil;
     [self.btn1 removeFromSuperview];
-     //self.pickView = nil;
+    //self.pickView = nil;
 }
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     
-        return 3;
+    return 3;
     
 }
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
@@ -188,8 +195,8 @@
         self.thrid = [self.areasDic valueForKey:self.selectCity];
         self.selectArea = self.thrid[0];
         [pickerView reloadAllComponents];
-       [pickerView selectRow:0 inComponent:1 animated:YES];
-       [pickerView selectRow:0 inComponent:2 animated:YES];
+        [pickerView selectRow:0 inComponent:1 animated:YES];
+        [pickerView selectRow:0 inComponent:2 animated:YES];
     }
     if (component == 1) {
         NSString *selectedCityName = self.second[row];
@@ -212,11 +219,11 @@
         self.selectArea = self.thrid[row];
     }
     
-
+    
 }
 -(void)choose{
     
-     NSArray *fir = self.first;
+    NSArray *fir = self.first;
     NSArray *sec = [self.citysDic objectForKey:self.selectProvince];
     NSArray *thr = [self.areasDic objectForKey:self.selectCity];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
