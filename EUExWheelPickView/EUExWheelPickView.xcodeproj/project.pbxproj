@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		090671AF1CC71BF300C80599 /* EUExWheelPickView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 090671AE1CC71BF300C80599 /* EUExWheelPickView.h */; };
 		090671B11CC71BF300C80599 /* EUExWheelPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 090671B01CC71BF300C80599 /* EUExWheelPickView.m */; };
 /* End PBXBuildFile section */
 
@@ -15,10 +14,9 @@
 		090671A91CC71BF300C80599 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
+			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				090671AF1CC71BF300C80599 /* EUExWheelPickView.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
