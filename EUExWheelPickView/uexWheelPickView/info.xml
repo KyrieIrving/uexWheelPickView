@@ -2,7 +2,7 @@
 <uexplugins>
     <plugin
         uexName="uexWheelPickView" version="3.0.1" build="1">
-        <info>1:新增默认值选项</info>
+        <info>1:支持兼容两级联动结构</info>
         <build>0:通用选择器插件</build>
     </plugin>
 </uexplugins>

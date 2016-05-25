@@ -10,12 +10,13 @@
 #import "EUtility.h"
 #import "JSON.h"
 @implementation EUExWheelPickView{
-    BOOL currentOpenStaus;
-    
+     BOOL currentOpenStaus;
+     BOOL notThird;
+     BOOL isShow;
 }
 - (id)initWithBrwView:(EBrowserView *)eInBrwView{
     if (self = [ super initWithBrwView:eInBrwView]) {
-        
+       
     }
     return self;
 }
@@ -70,25 +71,19 @@
     btn.frame = CGRectMake(width-50, 10, 50, 20);
     [btn setTitle:@"确定" forState:UIControlStateNormal];
     [btn setTitleColor:[EUtility ColorFromString:@"#1874CD"]forState:UIControlStateNormal];
-    UIButton *btn2 = [UIButton buttonWithType:0];
+     UIButton *btn2 = [UIButton buttonWithType:0];
     btn2.frame = CGRectMake(0, 10, 50, 20);
     [btn2 setTitle:@"取消" forState:UIControlStateNormal];
     [btn2 setTitleColor:[EUtility ColorFromString:@"#1874CD"]forState:UIControlStateNormal];
     self.btn1 = [UIButton buttonWithType:0];
     self.btn1.frame = CGRectMake(0, 0, [EUtility screenWidth], [EUtility screenHeight]);
     self.btn1.backgroundColor = [UIColor clearColor];
-    self.pickView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, 40, width, height-40)];
+    
+    notThird = YES;
+    currentOpenStaus = YES;
     [view addSubview:btn2];
     [view addSubview:btn];
-    [view addSubview:self.pickView];
-    [self.btn1 addSubview:view];
-    self.pickView.backgroundColor = [UIColor whiteColor];
-    self.pickView.showsSelectionIndicator = YES;
-    self.pickView.contentMode = UIViewContentModeScaleAspectFill;
-    self.pickView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    self.pickView.dataSource = self;
-    self.pickView.delegate = self;
-    currentOpenStaus = YES;
+   
     NSString *path = [info objectForKey:@"src"];
     NSString * jsonFilePath = [EUtility getAbsPath:meBrwView path:path];
     NSData *jsonData = [NSData dataWithContentsOfFile:jsonFilePath];
@@ -102,7 +97,7 @@
         for (NSDictionary *dic in citys) {
             [second addObject:dic[@"name"]];
         }
-        self.citysDic[provinceName] = second;
+       self.citysDic[provinceName] = second;
     }
     
     for (NSDictionary *dic in rootArr) {
@@ -113,39 +108,56 @@
             areas = dic[@"sub"];
             if (areas == nil) {
                 areas = @[@""];
+            }else{
+                isShow = YES;
             }
             self.areasDic[city] = areas;
         }
+        if (isShow) {
+            notThird = NO;
+        }
     }
-    if (self.first.count < [self.selectArr[0]intValue]) {
+    
+    self.selectProvince = self.first[[self.selectArr[0]intValue]];
+    self.selectCity = self.second[[self.selectArr[1]intValue]];
+    self.pickView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, 40, width, height-40)];
+    self.pickView.backgroundColor = [UIColor whiteColor];
+    self.pickView.showsSelectionIndicator = YES;
+    self.pickView.contentMode = UIViewContentModeScaleAspectFill;
+    self.pickView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    self.pickView.dataSource = self;
+    self.pickView.delegate = self;
+    [self.pickView selectRow:[self.selectArr[0]intValue] inComponent:0 animated:YES];
+    [self.pickView selectRow:[self.selectArr[1]intValue] inComponent:1 animated:YES];
+    if (self.first.count <= [self.selectArr[0]intValue]) {
         [self.selectArr replaceObjectAtIndex:0 withObject:@(0)];
     }
     
-    if (self.second.count < [self.selectArr[1]intValue]) {
+    if (self.second.count <= [self.selectArr[1]intValue]) {
         [self.selectArr replaceObjectAtIndex:1 withObject:@(0)];
     }
-    self.selectProvince = self.first[[self.selectArr[0]intValue]];
-    self.selectCity = self.second[[self.selectArr[1]intValue]];
-    
-    
-    [self.pickView selectRow:[self.selectArr[0]intValue] inComponent:0 animated:YES];
-    [self.pickView selectRow:[self.selectArr[1]intValue] inComponent:1 animated:YES];
     if (self.selectArr.count == 3) {
-        if (self.thrid.count < [self.selectArr[2]intValue]) {
+        if (self.thrid.count <= [self.selectArr[2]intValue]) {
             [self.selectArr replaceObjectAtIndex:2 withObject:@(0)];
         }
         self.selectArea = self.thrid[[self.selectArr[2]intValue]];
-        [self.pickView selectRow:[self.selectArr[2]intValue] inComponent:2 animated:YES];
+        
+        if (!notThird) {
+            [self.pickView selectRow:[self.selectArr[2]intValue] inComponent:2 animated:YES];
+        }
+        
     }
-    [self thrid];
-    [self second];
+    [view addSubview:self.pickView];
+    [self.btn1 addSubview:view];
     [btn addTarget:self action:@selector(choose) forControlEvents:UIControlEventTouchUpInside];
     [btn2 addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
     [self.btn1 addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
-    
+
     [[UIApplication sharedApplication].keyWindow addSubview:self.btn1];
-    //[EUtility brwView:meBrwView addSubview:self.btn1];
+
     
+    
+
 }
 -(void)close:(NSMutableArray*)inArguments{
     currentOpenStaus = NO;
@@ -158,11 +170,16 @@
     self.areasDic = nil;
     self.selectArea = nil;
     [self.btn1 removeFromSuperview];
-    //self.pickView = nil;
+     //self.pickView = nil;
 }
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    if (notThird) {
+        return 2;
+    }else{
+        return 3;
+    }
     
-    return 3;
+    
     
 }
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
@@ -180,7 +197,11 @@
     }else if(component==1){
         return self.second[row];
     }else{
-        return self.thrid[row];
+        if (!notThird) {
+            return self.thrid[row];
+        }
+        return nil;
+        
     }
 }
 
@@ -195,8 +216,11 @@
         self.thrid = [self.areasDic valueForKey:self.selectCity];
         self.selectArea = self.thrid[0];
         [pickerView reloadAllComponents];
-        [pickerView selectRow:0 inComponent:1 animated:YES];
-        [pickerView selectRow:0 inComponent:2 animated:YES];
+       [pickerView selectRow:0 inComponent:1 animated:YES];
+        if (!notThird) {
+            [pickerView selectRow:0 inComponent:2 animated:YES];
+        }
+       
     }
     if (component == 1) {
         NSString *selectedCityName = self.second[row];
@@ -207,23 +231,29 @@
         self.selectCity = selectedCityName;
         self.selectArea = self.thrid[0];
         [pickerView reloadAllComponents];
-        [pickerView selectRow:0 inComponent:2 animated:YES];
+        if (!notThird) {
+             [pickerView selectRow:0 inComponent:2 animated:YES];
+        }
+       
     }
-    if (component == 2) {
-        if (self.selectProvince == nil) {
-            self.selectProvince = self.first[[self.selectArr[0]intValue]];
+    if (!notThird) {
+        if (component == 2) {
+            if (self.selectProvince == nil) {
+                self.selectProvince = self.first[[self.selectArr[0]intValue]];
+            }
+            if (self.selectCity == nil) {
+                self.selectCity = self.second[[self.selectArr[1]intValue]];
+            }
+            self.selectArea = self.thrid[row];
         }
-        if (self.selectCity == nil) {
-            self.selectCity = self.second[[self.selectArr[1]intValue]];
-        }
-        self.selectArea = self.thrid[row];
+
     }
     
-    
+
 }
 -(void)choose{
     
-    NSArray *fir = self.first;
+     NSArray *fir = self.first;
     NSArray *sec = [self.citysDic objectForKey:self.selectProvince];
     NSArray *thr = [self.areasDic objectForKey:self.selectCity];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
