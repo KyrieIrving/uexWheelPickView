@@ -8,18 +8,12 @@
 
 #import "EUExWheelPickView.h"
 #import "EUtility.h"
-#import "JSON.h"
 @implementation EUExWheelPickView{
      BOOL currentOpenStaus;
      BOOL notThird;
      BOOL isShow;
 }
-- (id)initWithBrwView:(EBrowserView *)eInBrwView{
-    if (self = [ super initWithBrwView:eInBrwView]) {
-       
-    }
-    return self;
-}
+
 - (NSMutableArray*)first{
     if (!_first) {
         _first = [NSMutableArray array];
@@ -58,7 +52,7 @@
     if (currentOpenStaus == YES) {
         return;
     }
-    id info=[inArguments[0] JSONValue];
+    id info=[inArguments[0] ac_JSONValue];
     self.selectArr = [info objectForKey:@"select"];
     float x = [[info objectForKey:@"x"] floatValue]?:0;
     float hei = 0.4 *[EUtility screenHeight];
@@ -85,7 +79,7 @@
     [view addSubview:btn];
    
     NSString *path = [info objectForKey:@"src"];
-    NSString * jsonFilePath = [EUtility getAbsPath:meBrwView path:path];
+    NSString * jsonFilePath = [self absPath:path];
     NSData *jsonData = [NSData dataWithContentsOfFile:jsonFilePath];
     NSError *error = nil;
     NSArray *rootArr = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
@@ -268,9 +262,11 @@
     }
     dic[@"data"] = dataArr;
     dic[@"index"] = indexArr;
-    NSString *results = [dic JSONFragment];
-    NSString *jsString = [NSString stringWithFormat:@"if(uexWheelPickView.onConfirmClick){uexWheelPickView.onConfirmClick('%@');}",results];
-    [EUtility brwView:self.meBrwView evaluateScript:jsString];
+    //NSString *results = [dic ac_JSONFragment];
+    //NSString *jsString = [NSString stringWithFormat:@"if(uexWheelPickView.onConfirmClick){uexWheelPickView.onConfirmClick('%@');}",results];
+    //[EUtility brwView:self.meBrwView evaluateScript:jsString];
+    [self.webViewEngine callbackWithFunctionKeyPath:@"uexWheelPickView.onConfirmClick" arguments:ACArgsPack(dic)];
+    
     [self close:nil];
 }
 @end
