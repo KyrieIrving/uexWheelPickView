@@ -52,7 +52,7 @@
     if (currentOpenStaus == YES) {
         return;
     }
-    id info=[inArguments[0] ac_JSONValue];
+    ACArgsUnpack(NSDictionary*info) = inArguments;
     self.selectArr = [info objectForKey:@"select"];
     float x = [[info objectForKey:@"x"] floatValue]?:0;
     float hei = 0.4 *[EUtility screenHeight];
@@ -164,7 +164,7 @@
     self.areasDic = nil;
     self.selectArea = nil;
     [self.btn1 removeFromSuperview];
-     //self.pickView = nil;
+    
 }
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     if (notThird) {
@@ -262,9 +262,6 @@
     }
     dic[@"data"] = dataArr;
     dic[@"index"] = indexArr;
-    //NSString *results = [dic ac_JSONFragment];
-    //NSString *jsString = [NSString stringWithFormat:@"if(uexWheelPickView.onConfirmClick){uexWheelPickView.onConfirmClick('%@');}",results];
-    //[EUtility brwView:self.meBrwView evaluateScript:jsString];
     [self.webViewEngine callbackWithFunctionKeyPath:@"uexWheelPickView.onConfirmClick" arguments:ACArgsPack(dic)];
     
     [self close:nil];
