@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "EUExBase.h"
+#import <AppCanKit/AppCanKit.h>
 @interface EUExWheelPickView :EUExBase<UIPickerViewDataSource,UIPickerViewDelegate>
 @property(nonatomic,strong)UIPickerView *pickView;
 @property(nonatomic,strong)NSMutableArray *first;

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		090671B11CC71BF300C80599 /* EUExWheelPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 090671B01CC71BF300C80599 /* EUExWheelPickView.m */; };
+		2155518C1D3F65D20011F6D1 /* AppCanKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2155518B1D3F65D20011F6D1 /* AppCanKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,18 +27,9 @@
 		090671AB1CC71BF300C80599 /* libuexWheelPickView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libuexWheelPickView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		090671AE1CC71BF300C80599 /* EUExWheelPickView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EUExWheelPickView.h; sourceTree = "<group>"; };
 		090671B01CC71BF300C80599 /* EUExWheelPickView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EUExWheelPickView.m; sourceTree = "<group>"; };
-		090671C41CC71E1900C80599 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		090671C51CC71E1900C80599 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
-		090671C61CC71E1900C80599 /* MD5Digest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5Digest.h; sourceTree = "<group>"; };
-		090671C71CC71E1900C80599 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		090671C81CC71E1900C80599 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
-		090671C91CC71E1900C80599 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
-		090671CA1CC71E1900C80599 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
-		090671CB1CC71E1900C80599 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
-		090671CC1CC71E1900C80599 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
-		090671D61CC72B1500C80599 /* EUExBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBase.h; sourceTree = "<group>"; };
 		090671D71CC72B1500C80599 /* EUExBaseDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBaseDefine.h; sourceTree = "<group>"; };
 		090671D81CC72B1500C80599 /* EUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUtility.h; sourceTree = "<group>"; };
+		2155518B1D3F65D20011F6D1 /* AppCanKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCanKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2155518C1D3F65D20011F6D1 /* AppCanKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,32 +73,15 @@
 		090671BD1CC71E1900C80599 /* sourceCode */ = {
 			isa = PBXGroup;
 			children = (
+				2155518B1D3F65D20011F6D1 /* AppCanKit.framework */,
 				090671D51CC72B1500C80599 /* engineHeader */,
-				090671C31CC71E1900C80599 /* JSON */,
 			);
 			path = sourceCode;
-			sourceTree = "<group>";
-		};
-		090671C31CC71E1900C80599 /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				090671C41CC71E1900C80599 /* JSON.h */,
-				090671C51CC71E1900C80599 /* JSONParser.h */,
-				090671C61CC71E1900C80599 /* MD5Digest.h */,
-				090671C71CC71E1900C80599 /* NSObject+SBJSON.h */,
-				090671C81CC71E1900C80599 /* NSString+SBJSON.h */,
-				090671C91CC71E1900C80599 /* SBJSON.h */,
-				090671CA1CC71E1900C80599 /* SBJsonBase.h */,
-				090671CB1CC71E1900C80599 /* SBJsonParser.h */,
-				090671CC1CC71E1900C80599 /* SBJsonWriter.h */,
-			);
-			path = JSON;
 			sourceTree = "<group>";
 		};
 		090671D51CC72B1500C80599 /* engineHeader */ = {
 			isa = PBXGroup;
 			children = (
-				090671D61CC72B1500C80599 /* EUExBase.h */,
 				090671D71CC72B1500C80599 /* EUExBaseDefine.h */,
 				090671D81CC72B1500C80599 /* EUtility.h */,
 			);
@@ -260,6 +236,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = $SRCROOT/uexWheelPickView;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EUExWheelPickView/sourceCode",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = uexWheelPickView;
 				SKIP_INSTALL = YES;
@@ -270,6 +250,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = $SRCROOT/uexWheelPickView;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EUExWheelPickView/sourceCode",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = uexWheelPickView;
 				SKIP_INSTALL = YES;
